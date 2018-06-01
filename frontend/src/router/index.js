@@ -8,8 +8,8 @@ Vue.use(BootstrapVue)
 Vue.use(Router)
 Vue.use(Vue2Leaflet)
 const routerOptions = [
-  { path: '/', component: 'marker-map' },
-  { path: '/about', component: 'About' },
+  { path: '/inference', component: 'DoubleMap' },
+  { path: '/data', component: 'Datasets' },
   { path: '*', component: 'NotFound' }
 ]
 const routes = routerOptions.map(route => {
