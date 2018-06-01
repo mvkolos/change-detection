@@ -1,16 +1,16 @@
 <template>
-  <div class="marker-map">
+  <div class="marker-map p-5">
     <b-row class = "mx-auto">
-    <div class="map-container px-5">
+    <div class="map-container pl-5">
       <v-map
-        :zoom.sync="config.zoom" :center.sync="config.center" :min-zoom="config.minZoom" :max-zoom="config.maxZoom"
+        :zoom.sync="config.zoom" :center.sync="config.center" :min-zoom.sync="config.minZoom" :max-zoom.sync="config.maxZoom"
         @l-click="onMapClick" @l-zoomanim="onZoomChange">
         <v-tilelayer :url="config.url" :attribution="config.attribution"></v-tilelayer>
       </v-map>
     </div>
-    <div class="map-container px-5">
+    <div class="map-container pl-5">
       <v-map
-        :zoom.sync="config.zoom" :center.sync="config.center" :min-zoom="config.minZoom" :max-zoom="config.maxZoom"
+        :zoom.sync="config.zoom" :center.sync="config.center" :min-zoom.sync="config.minZoom" :max-zoom.sync="config.maxZoom"
         @l-click="onMapClick" @l-zoomanim="onZoomChange">
         <v-tilelayer :url="config.url" :attribution="config.attribution"></v-tilelayer>
       </v-map>
@@ -39,14 +39,6 @@ export default {
       type: Function,
       default: () => {}
     },
-    'marker-moved': {
-      type: Function,
-      default: () => {}
-    },
-    'marker-drag-end': {
-      type: Function,
-      default: () => {}
-    },
     'map-clicked': {
       type: Function,
       default: () => {}
@@ -71,7 +63,7 @@ export default {
   .marker-map {
     .map-container {
       width: 40%;
-      height: 500px;
+      height: 540px;
     }
   }
 </style>
