@@ -28,4 +28,3 @@ export default {
   @import './styles/custom-bootstrap.scss';
   @import '../node_modules/bootstrap/scss/bootstrap.scss';
 </style>
-
