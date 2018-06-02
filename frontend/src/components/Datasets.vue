@@ -4,7 +4,7 @@
       <b-row>
         <b-col class = 'p-5'>
           <b-card title="Ventura"
-                  img-src = '../static/ventura-pre.png'
+                  img-src = 'http://localhost:5000/image'
                   img-alt="Img"
                   img-top>
             <p class="card-text">
@@ -16,7 +16,7 @@
         </b-col>
         <b-col class = 'p-5'>
           <b-card title="Moscow North"
-                  img-src='../static/moscow.png'
+                  img-src='https://picsum.photos/600/300/?image=25'
                   img-alt="Img"
                   img-top>
             <p class="card-text">
