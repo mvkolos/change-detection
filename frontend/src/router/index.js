@@ -3,7 +3,26 @@ import Router from 'vue-router'
 // import Inference from '@/components/Inference'
 import BootstrapVue from 'bootstrap-vue'
 import Vue2Leaflet from 'vue2-leaflet'
+import VueLogger from 'vuejs-logger'
 
+const options = {
+  // optional : defaults to true if not specified
+  isEnabled: true,
+  // required ['debug', 'info', 'warn', 'error', 'fatal']
+  logLevel: 'debug',
+  // optional : defaults to false if not specified
+  stringifyArguments: false,
+  // optional : defaults to false if not specified
+  showLogLevel: false,
+  // optional : defaults to false if not specified
+  showMethodName: false,
+  // optional : defaults to '|' if not specified
+  separator: '|',
+  // optional : defaults to false if not specified
+  showConsoleColors: false
+}
+
+Vue.use(VueLogger, options)
 Vue.use(BootstrapVue)
 Vue.use(Router)
 Vue.use(Vue2Leaflet)

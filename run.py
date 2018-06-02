@@ -9,6 +9,7 @@ import json
 import sys
 import io
 import os
+from flask_cors import CORS
 
 # initialize constants used for server queuing
 IMAGE_QUEUE = "image_queue"
@@ -20,6 +21,7 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))   # refers to application_
 APP_STATIC = os.path.join(APP_ROOT, 'backend/resources')
 
 app = flask.Flask(__name__, static_folder = "backend\\resources",)
+CORS(app)
 db = redis.StrictRedis(host="localhost", port=6379, db=0)
 RESOURCES = 'backend\\resources'
 
@@ -107,7 +109,7 @@ def inference():
 #     print(os.path.dirname(RESOURCES))
 #     base_url = os.path.join(RESOURCES, 'images')
 #     return os.path.join(base_url, 'central-park.jpg')
-@app.route('/datasets')
+@app.route('/datasets', methods=['GET'])
 def fetch_datasets():
     datasets_dir = os.path.join(APP_STATIC, 'datasets')
     datasets = os.listdir(datasets_dir)
@@ -116,11 +118,14 @@ def fetch_datasets():
     for dataset in datasets:
         config_path = os.path.join(datasets_dir, dataset, 'config.json')
         with open(config_path, 'r') as config:
-            data = config.read()
-            js=json.loads(data)
+            js = json.loads(config.read())
+            js['imageUrl'] = ''
             print(js)
             configs.append(js)
-    return json.dumps(configs)
+    response = {
+        'datasets': configs
+    }
+    return flask.jsonify(response)
 
 if __name__ == "__main__":
     # load the function used to classify input images in a *separate*
