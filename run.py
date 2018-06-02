@@ -10,6 +10,13 @@ import sys
 import io
 import os
 from flask_cors import CORS
+from flask_uploads import UploadSet, configure_uploads, IMAGES
+from PIL import Image
+
+UploadSet
+#from flask.ext.uploads import UploadSet, configure_uploads, IMAGES
+
+photos = UploadSet('photos', IMAGES)
 
 # initialize constants used for server queuing
 IMAGE_QUEUE = "image_queue"
@@ -100,15 +107,33 @@ def inference():
 
         # sleep for a small amount
         time.sleep(SERVER_SLEEP)
-# @app.route('/image/<filename>')
-# def get_image(filename):
-#     base_url = os.path.join(RESOURCES, 'images')
-#     print(base_url)
-#     return flask.send_from_directory(base_url, filename)
-# def get_image_url(filename):
-#     print(os.path.dirname(RESOURCES))
-#     base_url = os.path.join(RESOURCES, 'images')
-#     return os.path.join(base_url, 'central-park.jpg')
+@app.route('/file')
+def get_file():
+    path = flask.request.args.get('path')
+    filename = flask.request.args.get('filename')
+    base_url = os.path.join(APP_STATIC, path)
+    return flask.send_from_directory(base_url, filename)
+@app.route('/datasets', methods=['POST'])
+def post_dataset():
+    dataset_name = flask.request.args.get('datasetName')
+
+    if dataset_name is None:
+        dataset_name = 'ds'
+    dataset_base_dir = os.path.join(APP_STATIC, 'datasets', dataset_name)
+    if not os.path.exists(dataset_base_dir):
+        os.makedirs(dataset_base_dir)
+    if 'filePre' in flask.request.files and 'filePost' in flask.request.files:
+        image_pre = Image.open(flask.request.files['filePre'])
+        image_post = Image.open(flask.request.files['filePost'])
+        image_pre.save(os.path.join(dataset_base_dir,'{}_pre.tif'.format(dataset_name)))
+        image_post.save(os.path.join(dataset_base_dir, '{}_post.tif'.format(dataset_name)))
+    else:
+        raise Exception()
+    if 'fileMarkup' in flask.request.files:
+        image_markup = Image.open(flask.request.files['fileMarkup'])
+        image_markup.save(os.path.join(dataset_base_dir, '{}_gt.tif'.format(dataset_name)))
+    return dataset_name
+
 @app.route('/datasets', methods=['GET'])
 def fetch_datasets():
     datasets_dir = os.path.join(APP_STATIC, 'datasets')
@@ -119,7 +144,7 @@ def fetch_datasets():
         config_path = os.path.join(datasets_dir, dataset, 'config.json')
         with open(config_path, 'r') as config:
             js = json.loads(config.read())
-            js['imageUrl'] = ''
+            js['imageUrl'] = 'http://localhost:5000/file?path=datasets/{}&filename=background.png'.format(dataset)
             print(js)
             configs.append(js)
     response = {

@@ -18,6 +18,7 @@
     "sass-loader": "^7.0.1",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
+    "vue-upload-component": "^2.8.8",
     "vue2-leaflet": "^1.0.2",
     "vuejs-logger": "^1.4.0"
   },

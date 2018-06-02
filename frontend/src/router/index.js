@@ -21,7 +21,8 @@ const options = {
   // optional : defaults to false if not specified
   showConsoleColors: false
 }
-
+const VueUploadComponent = require('vue-upload-component')
+Vue.component('file-upload', VueUploadComponent)
 Vue.use(VueLogger, options)
 Vue.use(BootstrapVue)
 Vue.use(Router)
