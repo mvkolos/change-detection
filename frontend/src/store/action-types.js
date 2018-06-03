@@ -1,0 +1,3 @@
+export const GET_DATASETS = 'GET_DATASETS'
+export const POST_DATASET = 'POST_DATASET'
+export const GET_INFERENCE = 'GET_INFERENCE'

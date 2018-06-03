@@ -144,7 +144,7 @@ def fetch_datasets():
         config_path = os.path.join(datasets_dir, dataset, 'config.json')
         with open(config_path, 'r') as config:
             js = json.loads(config.read())
-            js['imageUrl'] = 'http://localhost:5000/file?path=datasets/{}&filename=background.png'.format(dataset)
+            js['coverUrl'] = 'http://localhost:5000/file?path=datasets/{}&filename=background.png'.format(dataset)
             print(js)
             configs.append(js)
     response = {
@@ -163,4 +163,6 @@ if __name__ == "__main__":
     # start the web server
     print("* Starting web service...")
     app.run(host='0.0.0.0',debug=True)
+    d={'g':'hh'}
+    db.rpush(IMAGE_QUEUE, json.dumps(d))
 

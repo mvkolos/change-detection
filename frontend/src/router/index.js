@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import BootstrapVue from 'bootstrap-vue'
 import Vue2Leaflet from 'vue2-leaflet'
 import VueLogger from 'vuejs-logger'
+// import Vuex from 'vuex'
 
 const options = {
   // optional : defaults to true if not specified
@@ -27,8 +28,10 @@ Vue.use(VueLogger, options)
 Vue.use(BootstrapVue)
 Vue.use(Router)
 Vue.use(Vue2Leaflet)
+// Vue.use(Vuex)
 const routerOptions = [
-  { path: '/inference', component: 'DoubleMap' },
+  { path: '/inference', component: 'Inference' },
+  { path: '/map', component: 'DoubleMap' },
   { path: '/data', component: 'Datasets' },
   { path: '*', component: 'NotFound' }
 ]
