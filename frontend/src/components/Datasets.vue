@@ -23,7 +23,7 @@
                 <b-form-file class = "p-3 form-control-sm text-left" v-model="filePost" ref="filePost" :state="Boolean(filePost)" placeholder="Choose an image 'post'"></b-form-file>
                 <b-form-file class = "p-3 form-control-sm text-left" v-model="fileMarkup" ref="fileMarkup" :state="Boolean(fileMarkup)" placeholder="Upload markup (optional)"></b-form-file>
               </div>
-              <b-button @click = "dem" class = "mt-4" variant="primary">Upload</b-button>
+              <b-button router-link:to="{ path: '/inference', query: { element: element }}" class = "mt-4" variant="primary">Upload</b-button>
             </div>
           </b-card>
         </b-col>
@@ -36,20 +36,38 @@
 // import axios from 'axios'
 // import { GET_DATASETS } from '../store/action-types'
 import { createNamespacedHelpers } from 'vuex'
-
+import {datasetsModule, seriesModule} from '../constants'
 import {
   datasets
 } from '../store/modules/datasets'
+import {series} from '../store/modules/series'
 import store from '../store'
 if (!store.state.datasets) {
-  store.registerModule('datasets', datasets)
+  store.registerModule(datasetsModule, datasets)
+}
+if (!store.state.series) {
+  store.registerModule(seriesModule, series)
 }
 const {
   mapState: mapDatasetsState
-} = createNamespacedHelpers('datasets')
+} = createNamespacedHelpers(datasetsModule)
+
+// const {
+//   seriesState: mapSeriesState } = createNamespacedHelpers(seriesModule)
 export default {
+  data () {
+    return {
+      element: {
+        datasetId: 'ventura',
+        seriesId: 0,
+        layerPre: 'opm-host:rgb_v_pre',
+        layerPost: 'opm-host:rgb_v_post'
+      }
+    }
+  },
   computed: {
-    ...mapDatasetsState(['datasets'])
+    ...mapDatasetsState([datasetsModule])
+    // ...mapSeriesState([seriesModule])
   },
   created: () => { store.dispatch('datasets/fetchDatasets') }
   // methods:

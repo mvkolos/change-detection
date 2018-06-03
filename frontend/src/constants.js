@@ -1,4 +1,5 @@
 export const backendServer = 'http://localhost:5000'
-// export const apiPath = '/api'
-// export const backendUrl = backendServer + '/' + apiPath
 export const datasetPath = backendServer + '/' + 'datasets'
+export const inferencePath = backendServer + '/' + 'inference'
+export const seriesModule = 'series'
+export const datasetsModule = 'datasets'

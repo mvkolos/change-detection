@@ -151,7 +151,27 @@ def fetch_datasets():
         'datasets': configs
     }
     return flask.jsonify(response)
+@app.route('/datasets/<datasetId>/series', methods=['GET'])
+def fetch_series():
+    datasetId = flask.request.args.get('datasetId')
+    datasetsDir = os.path.join(APP_STATIC, 'datasets', datasetId)
+    root, seriesIds, files = os.walk(datasetsDir)
+    print(seriesIds)
+    series = [{'seriesId': seriesId,
+               'layerPre': get_layer(datasetId, seriesId, 0),
+               'layerPost': get_layer(datasetId, seriesId, 1)} for seriesId in seriesIds]
+    response = {
+        'series': series
+    }
+    return flask.jsonify(response)
 
+@app.route('/map_view', methods=['GET'])
+def map_view():
+    datasetId = flask.request.args.get('datasetId')
+    seriesId = flask.request.args.get('seriesId')
+
+def get_layer(datasetId, seriesId, order=0):
+    return 'opm'
 if __name__ == "__main__":
     # load the function used to classify input images in a *separate*
     # thread than the one used for main classification

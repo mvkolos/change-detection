@@ -58,10 +58,16 @@ export default {
   name: 'double-map',
   data () {
     return {
-      items: items
+      items: items,
+      layersPre: 'opm-host:rgb_v_pre'
     }
   },
   props: {
+    // layersPre: {
+    //   return: 'opm-host:rgb_v_pre'
+    // },
+    layersPost: {
+      return: 'opm-host:rgb_v_pre'},
     'is-shown': {
       type: Boolean,
       default: false
@@ -70,15 +76,15 @@ export default {
       type: Object,
       default: new MapModel([34.30, -119.20])
     },
-    layerPost:
-      {
-        type: Object,
-        default: new WMSLayer('opm-host:masked')
-      },
+    // layerPost:
+    //   {
+    //     type: Object,
+    //     default: new WMSLayer(this.layersPre)
+    //   },
     layerPre:
       {
         type: Object,
-        default: new WMSLayer('opm-host:rgb_v_pre')
+        default: new WMSLayer(this.layersPost)
       },
     'zoom-changed': {
       type: Function,
@@ -87,6 +93,11 @@ export default {
     'map-clicked': {
       type: Function,
       default: () => {}
+    }
+  },
+  computed: {
+    layerPost () {
+      return new WMSLayer(this.layersPost)
     }
   },
   components: {

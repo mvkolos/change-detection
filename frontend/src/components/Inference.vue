@@ -3,14 +3,7 @@
     <b-row class = "pt-3 ml-5">
       <h-6 style ="font-size: 1.7rem">Run inference</h-6>
     </b-row>
-    <b-container-fuild>
-      <b-col cols="10">
-        <map-series layer-post="layerPost" layer-pre="layerPre"></map-series>
-      </b-col>
-      <!--<b-col cols="1">-->
-        <!--<b-button></b-button>-->
-      <!--</b-col>-->
-    </b-container-fuild>
+    <double-map></double-map>
   </div>
 </template>
 
