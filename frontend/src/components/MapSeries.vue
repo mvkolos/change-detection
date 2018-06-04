@@ -16,6 +16,7 @@
             :zoom.sync="config.zoom" :center.sync="config.center" :min-zoom.sync="config.minZoom" :max-zoom.sync="config.maxZoom"
             @l-click="onMapClick" @l-zoomanim="onZoomChange">
             <v-tilelayer :url="config.url" :attribution="config.attribution" :layerType="base" ></v-tilelayer>
+            <l-control-layers />
             <l-wms-tile-layer :transparent = "layerPost.transparent" :baseUrl="layerPost.baseUrl" :format = "layerPost.format"
                               :layers="layerPost.layers"  :layerType="layerPost.layerType"/>
           </v-map>
@@ -67,7 +68,8 @@ export default {
   components: {
     'v-map': Vue2Leaflet.LMap,
     'v-tilelayer': Vue2Leaflet.LTileLayer,
-    'l-wms-tile-layer': Vue2Leaflet.LWMSTileLayer
+    'l-wms-tile-layer': Vue2Leaflet.LWMSTileLayer,
+    'l-control-layers': Vue2Leaflet.LControlLayers
   },
   methods: {
     onZoomChange (event) {
