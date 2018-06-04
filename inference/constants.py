@@ -1,1 +1,0 @@
-SEGMENTATION_MODEL_PATH = 'backend/resources/models/segmentation/model_cd_unet_v2_santa_rosa'

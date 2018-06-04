@@ -1,0 +1,7 @@
+SEGMENTATION_MODEL_PATH = 'backend/resources/models/segmentation/model_cd_unet_v2_santa_rosa'
+GEOSERVER_URL = 'http://localhost:8081/geoserver'
+DEFAULT_WORKSPACE = 'opm-host'
+GEOSERVER_LOGIN ='admin'
+GEOSERVER_PASSWORD = 'geoserver'
+APP_STATIC = 'backend/resources'
+OPM_VOLUME = 'datasets'

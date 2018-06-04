@@ -1,4 +1,4 @@
-from .constants import SEGMENTATION_MODEL_PATH
+from backend.constants import SEGMENTATION_MODEL_PATH
 from .model import load_model
 import os
 import matplotlib.pyplot as plt
