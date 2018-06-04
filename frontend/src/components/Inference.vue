@@ -3,19 +3,23 @@
     <b-row class = "pt-3 ml-5">
       <h-6 style ="font-size: 1.7rem">Run inference</h-6>
     </b-row>
-    <double-map></double-map>
+    <map-series :layers-post=layersPost :layers-pre=layersPre></map-series>
   </div>
 </template>
 
 <script>
-import DoubleMap from './DoubleMap'
 import MapSeries from './MapSeries'
 export default {
   name: 'Inference',
-  components: {MapSeries, DoubleMap},
-  data () {
-    return {
-      msg: 'Run inference'
+  components: {MapSeries},
+  props: {
+    layersPre: {
+      type: Text,
+      default: 'opm-host:rgb_v_pre'
+    },
+    layersPost: {
+      type: Text,
+      default: 'opm-host:rgb_v_pre'
     }
   }
 }

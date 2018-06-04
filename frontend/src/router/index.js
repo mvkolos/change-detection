@@ -11,7 +11,7 @@ Vue.use(Vue2Leaflet)
 
 const routerOptions = [
   { path: '/inference',
-    component: 'DoubleMap',
+    component: 'Inference',
     props: (route) => ({
       layersPre: route.query.layersPost,
       layersPost: route.query.layersPost
