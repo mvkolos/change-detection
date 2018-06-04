@@ -19,6 +19,12 @@ const {
   mapState: mapSeriesState } = createNamespacedHelpers(seriesModule)
 export default {
   name: 'Series',
+  props: {
+    datasetId: {
+      type: Text,
+      default: 'ventura'
+    }
+  },
   computed: {
     ...mapSeriesState([seriesModule])
   },

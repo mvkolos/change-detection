@@ -6,12 +6,12 @@
     <b-container>
       <b-row>
         <b-col class="py-3" col md="4" v-for="dataset in datasets" :key="dataset.name">
-          <b-card :title="dataset.name"
+          <b-card :title="dataset.displayName"
                   :img-src = "dataset.coverUrl"
                   img-alt="Img"
                   img-top>
             <p class="card-text">{{dataset.description}}</p>
-            <b-button router-link:to="{ path: '/inference', query: { layersPre: 'layersPre', layersPost: 'layersPost' }}" variant="primary">View Changes</b-button>
+            <b-button b-link :to ="{ path: '/series', query: { datasetId: dataset.name}}" variant="primary">View Changes</b-button>
           </b-card>
         </b-col>
         <b-col class="py-3" col md="4">
@@ -22,7 +22,7 @@
                 <b-form-file class = "p-3 form-control-sm text-left" v-model="filePost" ref="filePost" :state="Boolean(filePost)" placeholder="Choose an image 'post'"></b-form-file>
                 <b-form-file class = "p-3 form-control-sm text-left" v-model="fileMarkup" ref="fileMarkup" :state="Boolean(fileMarkup)" placeholder="Upload markup (optional)"></b-form-file>
               </div>
-              <b-button class = "mt-4" variant="primary">Upload</b-button>
+              <b-button @click="handleUpload" class = "mt-4" variant="primary">Upload</b-button>
             </div>
           </b-card>
         </b-col>
@@ -35,13 +35,16 @@
 // import axios from 'axios'
 // import { GET_DATASETS } from '../store/action-types'
 import { createNamespacedHelpers } from 'vuex'
-import {datasetsModule} from '../constants'
+import {datasetsModule, seriesModule} from '../constants'
 import {datasets} from '../store/modules/datasets'
+import {series} from '../store/modules/series'
 import store from '../store'
 if (!store.state.datasets) {
   store.registerModule(datasetsModule, datasets)
 }
-
+if (!store.state.series) {
+  store.registerModule(seriesModule, series)
+}
 const {
   mapState: mapDatasetsState
 } = createNamespacedHelpers(datasetsModule)
@@ -54,6 +57,12 @@ export default {
         layerPre: 'opm-host:rgb_v_pre',
         layerPost: 'opm-host:rgb_v_post'
       }
+    }
+  },
+  props: {
+    hideCustom: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {

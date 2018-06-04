@@ -13,7 +13,7 @@ const routerOptions = [
   { path: '/inference',
     component: 'Inference',
     props: (route) => ({
-      layersPre: route.query.layersPost,
+      layersPre: route.query.layersPre,
       layersPost: route.query.layersPost
     })
   },

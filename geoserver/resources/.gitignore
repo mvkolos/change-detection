@@ -1,0 +1,7 @@
+# folder for build resources
+
+# ignore everything
+*
+
+# except .gitignore itself
+!.gitignore

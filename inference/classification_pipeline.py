@@ -1,0 +1,2 @@
+class ClassificationPipeline:
+    model = None
