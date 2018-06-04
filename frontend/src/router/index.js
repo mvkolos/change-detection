@@ -17,8 +17,8 @@ const routerOptions = [
       layersPost: route.query.layersPost
     })
   },
-  { path: '/map', component: 'DoubleMap' },
   { path: '/data', component: 'Datasets' },
+  { path: '/series', component: 'Series' },
   { path: '*', component: 'NotFound' }
 ]
 const routes = routerOptions.map(route => {

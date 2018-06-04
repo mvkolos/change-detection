@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import {datasetPath, seriesModule} from '../../constants'
-import {LOAD_SUCCESS} from '../mutation-types'
+import {LOAD_SERIES_SUCCESS} from '../mutation-types'
 // We're using reusable form modules
 // to store the data of our forms.
 
@@ -10,21 +10,23 @@ const actions = {
     console.log('fetching series')
     var path = [datasetPath, state.datasetId, seriesModule].join('/')
     axios.get(path).then(response => {
-      return commit(LOAD_SUCCESS, response.data)
+      return commit(LOAD_SERIES_SUCCESS, response.data)
     })
   }
 }
 const state = () => ({
-  datasetId: '',
+  datasetId: 'ventura',
   series: [
     {
       seriesId: 0,
-      coverUrl: '',
-      layerPre: '',
-      layerPost: ''}]
+      layerPre: 'gt',
+      layerPost: 'gt'}, {
+      seriesId: 2,
+      layerPre: 'gt',
+      layerPost: 'gt'}]
 })
 const mutations = {
-  [LOAD_SUCCESS] (state, data) {
+  [LOAD_SERIES_SUCCESS] (state, data) {
     console.log('response ', data.series)
     state.series = data.series
   }}

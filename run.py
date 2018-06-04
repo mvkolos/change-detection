@@ -151,27 +151,33 @@ def fetch_datasets():
         'datasets': configs
     }
     return flask.jsonify(response)
-@app.route('/datasets/<datasetId>/series', methods=['GET'])
-def fetch_series():
-    datasetId = flask.request.args.get('datasetId')
-    datasetsDir = os.path.join(APP_STATIC, 'datasets', datasetId)
-    root, seriesIds, files = os.walk(datasetsDir)
-    print(seriesIds)
+
+
+@app.route('/datasets/<dataset_id>/series', methods=['GET'])
+def fetch_series(dataset_id):
+    print(dataset_id)
+    datasets_dir = os.path.join(APP_STATIC, 'datasets', dataset_id)
+    series_ids = [file for file in os.listdir(datasets_dir) if os.path.isdir(os.path.join(datasets_dir, file))]
+    print(series_ids)
     series = [{'seriesId': seriesId,
-               'layerPre': get_layer(datasetId, seriesId, 0),
-               'layerPost': get_layer(datasetId, seriesId, 1)} for seriesId in seriesIds]
+               'layerPre': get_layer(dataset_id, seriesId, 0),
+               'layerPost': get_layer(dataset_id, seriesId, 1)} for seriesId in series_ids]
     response = {
         'series': series
     }
     return flask.jsonify(response)
 
+
 @app.route('/map_view', methods=['GET'])
 def map_view():
-    datasetId = flask.request.args.get('datasetId')
-    seriesId = flask.request.args.get('seriesId')
+    dataset_id = flask.request.args.get('datasetId')
+    series_id = flask.request.args.get('seriesId')
 
-def get_layer(datasetId, seriesId, order=0):
-    return 'opm'
+
+def get_layer(dataset_id, series_id, order=0):
+    return 'opm-host:rgb_v_post'
+
+
 if __name__ == "__main__":
     # load the function used to classify input images in a *separate*
     # thread than the one used for main classification
@@ -182,7 +188,6 @@ if __name__ == "__main__":
 
     # start the web server
     print("* Starting web service...")
-    app.run(host='0.0.0.0',debug=True)
-    d={'g':'hh'}
+    app.run(host='0.0.0.0', debug=True)
+    d = {'g': 'hh'}
     db.rpush(IMAGE_QUEUE, json.dumps(d))
-
